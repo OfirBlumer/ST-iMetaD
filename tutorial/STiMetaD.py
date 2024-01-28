@@ -39,7 +39,7 @@ class STiMetaD:
             predictions.append(k)
             R2s.append(1 - sum((np.log(survival[:limit]) + k * samples[:limit]) ** 2) / sum((np.log(survival[:limit]) - np.log(survival[:limit]).mean()) ** 2))
 
-        return pd.DataFrame({"time": samples[minSampleSize:], "prediction": predictions,"R2": R2s})
+        return pd.DataFrame({"Tstar": samples[minSampleSize:], "prediction": predictions,"R2": R2s})
 
     def estimateMFPT(self, samples, minSampleSize = None):
         """
@@ -75,7 +75,7 @@ class STiMetaD:
         """
 
         data = self.obtainEstimationsDataFrame(samples = samples, minSampleSize = minSampleSize)
-        return float(data.loc[data.R2 == data.R2.max()].time)
+        return float(data.loc[data.R2 == data.R2.max()].Tstar)
     
     def iMetaDMFPT(self, samples, KStest = False, fitSamples = 1000000):
         """
